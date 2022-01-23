@@ -49,7 +49,8 @@ public class Board {
 }
 
 //JPA란
-//Java Persistence API:orm기술을 표준으로 사용하는 인터페이스 모음,JPA는 반복적인 CRUD SQL을 처리, 간단히 말하자면 애플리케이션과 JDBC 사이에서 동작 징검다리 역할(명령문을 내리면 쿼리문으로 바꿔서 쏨),
+//Java Persistence API:orm기술을 표준으로 사용하는 인터페이스 모음,JPA는 반복적인 CRUD SQL을 처리, 간단히 말하자면 자바애플리케이션과 JDBC 사이에서 동작 징검다리 역할(명령문을 내리면 쿼리문으로 바꿔서 쏨),
+//JDBC(Java Database Connectivity)는 자바에서 데이터베이스에 접속할 수 있도록 하는 자바 API
 // 대표 jpa: 하이버 네이트
 // ORM(Object-Relational Mapping):Class와 RDB(Relational DataBase)의 테이블을 매핑(연결)한다는 뜻이며, 기술적으로는 어플리케이션의 객체를 RDB 테이블에 자동으로 영속화 해주는 것
 //1. 생산성

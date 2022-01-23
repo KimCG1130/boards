@@ -30,6 +30,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration name="BoardsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -49,6 +50,7 @@
       <option name="presentableId" value="Default" />
       <updated>1642764280014</updated>
       <workItem from="1642764281333" duration="620000" />
+      <workItem from="1642929472569" duration="9000" />
     </task>
     <servers />
   </component>
