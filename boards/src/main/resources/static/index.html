@@ -51,6 +51,18 @@
             border-radius: 5px;
         }
 
+        .card{
+            display:block;
+            border: black solid;
+
+        }
+
+        .smallcard{
+            display:block;
+            border: black solid;
+
+        }
+
 
     </style>
     <script>
@@ -95,44 +107,69 @@
 
         function getDetail(id) {
 
-            alert("상세정보조회중!");
+            alert(id);
 
             console.log(id)
 
 
             $.ajax({
                 type: "GET",
-                url: "/api/boards/{id}",
+                url: "/api/boards/"+id,
                 data: {id:id},
                 contentType:"application/json",
 
-                success: function () { // 성공하면
+
+
+
+                success: function (response) { // 성공하면
                     alert("상세정보조회중!");
-                }
-            })
-        }
 
-        function showDetail(id) {
-
-            alert("상세정보조회중!");
-
-            console.log(id)
+                        let boards = response
+                            let title = boards['title']
+                            let username = boards['username']
+                            let content = boards['content']
+                            let createdTime = boards['created_at']
+                            let id = boards['id']
 
 
-            let temp_html = `
-                                            <p><a href="#ex1" onclick="getDetail(\'` + id + `\')" rel="modal:open">상세내용</a></p>
-                                            <div id="ex1" class="modal">
-                                             <p>제목:${title}</p>
-                                             <p>작성자:${username}</p>
+                    let postDetail = `
+
+
                                               <p>작성시간:${createdTime}</p>
                                                  <p>상세내용:${content}</p>
-                                                <a href="#" rel="modal:close">닫기</a>
+
                                             </div>
                                         </div>
                                 </div>
 
                                 `
+
+
+                    $(`#postDetail-${id}`).append(postDetail)
+                }
+            })
+
+            // let postDetail = `
+            //                                 <p><a href="#ex1" onclick="getDetail(${id})" rel="modal:open">상세내용</a></p>
+            //                                 <div id="ex1" class="modal">
+            //                                  <p>제목:${title}</p>
+            //                                  <p>작성자:${username}</p>
+            //                                   <p>작성시간:${createdTime}</p>
+            //                                      <p>상세내용:${content}</p>
+            //                                     <a href="#" rel="modal:close">닫기</a>
+            //                                 </div>
+            //                             </div>
+            //                     </div>
+            //
+            //                     `
+
+            // $('#postDetail').append(postDetail)
         }
+
+
+
+
+
 
         // function deleteArticle(title1) {
         //     alert("테스트중");
@@ -173,20 +210,18 @@
                         let id = boards[i]['id']
 
 
-                        let temp_html = `<div className="card">
+                        let temp_html = `<div class="card">
 
-                                        <div className="card-body">
-                                            <a target="_blank"  className="card-title">제목: ${title}</a>
-                                            <p className="card-text">작성자:${username}</p>
-                                            <p><a href="#ex1" onclick="getDetail(\'` + id + `\')" rel="modal:open">상세내용</a></p>
-                                            <div id="ex1" class="modal">
-                                             <p>제목:${title}</p>
-                                             <p>작성자:${username}</p>
-                                              <p>작성시간:${createdTime}</p>
-                                                 <p>상세내용:${content}</p>
-                                                <a href="#" rel="modal:close">닫기</a>
+                                        <div class="card-body">
+                                            <a target="_blank"  class="card-title">제목: ${title}</a>
+                                            <p class="card-text">작성자:${username}</p>
+                                            <p><a  onclick="getDetail(${id})" >상세내용</a></p>
+
+                                             <p id="postDetail" ></p>
+
                                             </div>
                                         </div>
+                                        <div id = "postDetail-${id}"></div>
                                 </div>
 
                                 `
