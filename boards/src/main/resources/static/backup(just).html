@@ -93,45 +93,20 @@
             })
         }
 
-        function getDetail(id) {
+        function getDetail() {
 
-            alert("상세정보조회중!");
-
-            console.log(id)
 
 
             $.ajax({
-                type: "GET",
+                type: "POST",
                 url: "/api/boards/{id}",
-                data: {id:id},
+                data: {},
                 contentType:"application/json",
 
                 success: function () { // 성공하면
                     alert("상세정보조회중!");
                 }
             })
-        }
-
-        function showDetail(id) {
-
-            alert("상세정보조회중!");
-
-            console.log(id)
-
-
-            let temp_html = `
-                                            <p><a href="#ex1" onclick="getDetail(\'` + id + `\')" rel="modal:open">상세내용</a></p>
-                                            <div id="ex1" class="modal">
-                                             <p>제목:${title}</p>
-                                             <p>작성자:${username}</p>
-                                              <p>작성시간:${createdTime}</p>
-                                                 <p>상세내용:${content}</p>
-                                                <a href="#" rel="modal:close">닫기</a>
-                                            </div>
-                                        </div>
-                                </div>
-
-                                `
         }
 
         // function deleteArticle(title1) {
@@ -170,7 +145,6 @@
                         let username = boards[i]['username']
                         let content = boards[i]['content']
                         let createdTime = boards[i]['created_at']
-                        let id = boards[i]['id']
 
 
                         let temp_html = `<div className="card">
@@ -178,7 +152,7 @@
                                         <div className="card-body">
                                             <a target="_blank"  className="card-title">제목: ${title}</a>
                                             <p className="card-text">작성자:${username}</p>
-                                            <p><a href="#ex1" onclick="getDetail(\'` + id + `\')" rel="modal:open">상세내용</a></p>
+                                            <p><a href="#ex1" rel="modal:open">상세내용</a></p>
                                             <div id="ex1" class="modal">
                                              <p>제목:${title}</p>
                                              <p>작성자:${username}</p>

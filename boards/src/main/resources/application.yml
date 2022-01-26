@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create  #none,update,validate
+      ddl-auto: update  #none,update,validate
     properties:
       hibernate:
         format_sql: true
