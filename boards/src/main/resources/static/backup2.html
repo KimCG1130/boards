@@ -1,0 +1,247 @@
+<!Doctype html>
+<html lang="ko">
+
+<head>
+  <!--    <script type="text/javascript" src="resources/js/jquery-2.1.4.min.js"></script>-->
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+
+  <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+
+  <!-- 구글폰트 -->
+  <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+
+  <title>스파르타코딩클럽 | 나홀로 메모장</title>
+
+  <!-- style -->
+  <style type="text/css">
+    * {
+      font-family: "Stylish", sans-serif;
+    }
+
+    .wrap {
+      width: 900px;
+      margin: auto;
+    }
+
+    .comment {
+      color: blue;
+      font-weight: bold;
+    }
+
+    #post-box {
+      width: 500px;
+      margin: 20px auto;
+      padding: 50px;
+      border: black solid;
+      border-radius: 5px;
+    }
+
+
+  </style>
+  <script>
+    $(document).ready(function () {
+      showBoards();
+    });
+
+    function openClose() {
+      if ($("#post-box").css("display") == "block") {
+        $("#post-box").hide();
+        $("#btn-post-box").text("포스팅 박스 열기");
+      } else {
+        $("#post-box").show();
+        $("#btn-post-box").text("포스팅 박스 닫기");
+      }
+    }
+
+
+
+
+
+    function postBoard() {
+      let title = $('#title').val();
+      let content = $('#content').val();
+      let username = $('#username').val();
+
+      let data = {title:title,content:content,username:username}
+
+
+      $.ajax({
+        type: "POST",
+        url: "/api/boards",
+        data:JSON.stringify(data),
+        contentType:"application/json",
+
+        success: function () { // 성공하면
+          alert("글 작성 완료!");
+          window.location.reload()
+        }
+      })
+    }
+
+    function getDetail(id) {
+
+      alert("상세정보조회중!");
+
+      console.log(id)
+
+
+      $.ajax({
+        type: "GET",
+        url: "/api/boards/{id}",
+        data: {id:id},
+        contentType:"application/json",
+
+
+
+
+        success: function () { // 성공하면
+          alert("상세정보조회중!");
+        }
+      })
+
+      let postDetail = `
+                                            <p><a href="#ex1" onclick="getDetail(${id})" rel="modal:open">상세내용</a></p>
+                                            <div id="ex1" class="modal">
+                                             <p>제목:${title}</p>
+                                             <p>작성자:${username}</p>
+                                              <p>작성시간:${createdTime}</p>
+                                                 <p>상세내용:${content}</p>
+                                                <a href="#" rel="modal:close">닫기</a>
+                                            </div>
+                                        </div>
+                                </div>
+
+                                `
+
+      $('#cards-box').append(temp_html)
+    }
+
+
+
+
+
+
+    // function deleteArticle(title1) {
+    //     alert("테스트중");
+    //     console.log(title1)
+    //     let title = (title1)
+    //
+    //
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "/delete",
+    //         data: {title_give:title1},
+    //         success: function (response) { // 성공하면
+    //             alert(response["msg:삭제테스트중"]);
+    //             alert("테스트중");
+    //             window.location.reload()
+    //         }
+    //     })
+    //
+    //
+    // }
+
+
+
+
+
+    function showBoards() {
+      $.ajax({
+        type: "GET",
+        url: "/api/boards",
+        data: {},
+        success: function (response) {
+          let boards = response
+          for(let i=0; i < boards.length; i++) {
+            let title = boards[i]['title']
+            let username = boards[i]['username']
+            let content = boards[i]['content']
+            let createdTime = boards[i]['created_at']
+            let id = boards[i]['id']
+
+
+            let temp_html = `<div className="card">
+
+                                        <div className="card-body">
+                                            <a target="_blank"  className="card-title">제목: ${title}</a>
+                                            <p className="card-text">작성자:${username}</p>
+                                            <p><a href="#ex1" onclick="getDetail(${id})" rel="modal:open">상세내용</a></p>
+                                            <div id="ex1" class="modal">
+                                             <p>제목:${title}</p>
+                                             <p>작성자:${username}</p>
+                                              <p>작성시간:${createdTime}</p>
+                                                 <p>상세내용:${content}</p>
+                                                <a href="#" rel="modal:close">닫기</a>
+                                            </div>
+                                        </div>
+                                        <div id = "cardDetail"-${id}"></div>
+                                </div>
+
+                                `
+            $('#cards-box').append(temp_html)
+          }
+        }
+      })
+    }
+  </script>
+
+</head>
+
+<body>
+
+
+<div class="wrap">
+  <div class="jumbotron">
+    <h1 class="display-4">나홀로 메모장!</h1>
+    <p class="lead">Spring Framework와 Java를 이용해서 만든 페이지입니다</p>
+    <hr class="my-4">
+    <p class="lead">
+      <button onclick="openClose()" id="btn-post-box" type="button" class="btn btn-primary">포스팅 박스 열기
+      </button>
+    </p>
+  </div>
+  <div id="post-box" class="form-post" style="display:none">
+    <div>
+      <div class="form-group">
+        <label for="title">제목</label>
+        <input id="title" class="form-control" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="username">작성자</label>
+        <input id="username" class="form-control" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="content">내용을 적으세요.</label>
+        <textarea id="content" class="form-control" rows="2"></textarea>
+      </div>
+      <button type="button" class="btn btn-primary" onclick="postBoard()">저장</button>
+    </div>
+  </div>
+
+
+  <div id="cards-box" class="card w-75">
+
+  </div>
+
+
+
+</div>
+</div>
+</body>
+
+</html>
