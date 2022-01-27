@@ -6,6 +6,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="og타이틀 연습중입니다">
+    <meta property="og:description" content="연습만이 살길이다">
+    <meta property="og:image" content="images/og_selectshop.png">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -107,7 +110,6 @@
 
         function getDetail(id) {
 
-            alert(id);
 
             console.log(id)
 
@@ -122,7 +124,7 @@
 
 
                 success: function (response) { // 성공하면
-                    alert("상세정보조회중!");
+                    alert("getOne!");
 
                         let boards = response
                             let title = boards['title']
@@ -215,7 +217,7 @@
                                         <div class="card-body">
                                             <a target="_blank"  class="card-title">제목: ${title}</a>
                                             <p class="card-text">작성자:${username}</p>
-                                            <p><a  onclick="getDetail(${id})" >상세내용</a></p>
+                                            <p><button class="btn btn-primary" onclick="getDetail(${id})" >상세내용</type></p>
 
                                              <p id="postDetail" ></p>
 
@@ -240,7 +242,7 @@
 <div class="wrap">
     <div class="jumbotron">
         <h1 class="display-4">나홀로 메모장!</h1>
-        <p class="lead">Spring Framework와 Java를 이용해서 만든 페이지입니다</p>
+        <p class="lead">Spring Framework와 Java를 이용해서 만든 페이지입니다. 글을 작성 할 수 있습니다. 상세조회 시 해당 항목의 작성시간과 내용을 불러옵니다.</p>
         <hr class="my-4">
         <p class="lead">
             <button onclick="openClose()" id="btn-post-box" type="button" class="btn btn-primary">포스팅 박스 열기
